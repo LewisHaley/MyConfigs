@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# Deploys the files/directories contained in this repo to
+# their correct locations in my $MY_DIR directory on a Linux
+# (Fedora) machine.
+
+# COMMAND LINE
+cp bashrc "$MY_DIR/.bashrc"
+cp inputrc "$MY_DIR/.inputrc"
+
+# VI
+mkdir -p "$MY_DIR/.vim/autoload" "$MY_DIR/.vim/bundle"
+curl -Sso "$MY_DIR/.vim/autoload/pathogen.vim" \
+    https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+( cd "$MY_DIR/.vim/bundle"
+    git clone git@github.com:davidhalter/jedi-vim.git
+    cd jedi-vim
+    git submodule update --init )
+cp vimrc "$MY_DIR/.vimrc"
+
+# GIT
+cp gitk "$MY_DIR/.gitk"
+cp gitconfig "$MY_DIR/.gitconfig"
+
+# TERMINATOR
+trap "rm -f config" EXIT
+sed "s#<BACKGROUND_URI>#$PWD/clouds.png#" terminator_config > config
+if [ -d "$MY_DIR/.config/terminator" ]; then
+    mv config "$MY_DIR/.config/terminator/"
+else
+    mkdir -p "$MY_DIR/.config/terminator" &&
+    mv config "$MY_DIR/.config/terminator/"
+fi
