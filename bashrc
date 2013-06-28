@@ -77,15 +77,6 @@ ekill() {
     xargs -i kill -9 {}
 }
 
-# shows debug images from stbt templatematch
-DEBUG() {
-    if [ -d ./stbt-debug/templatematch ]; then
-        eog ./stbt-debug/templatematch/*
-    else
-        echo "No stbt-debug directory!"
-    fi
-}
-
 # go to uitests repo
 alias UITESTS="cd $HOME/test-dev/uitests"
 
