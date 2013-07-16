@@ -21,36 +21,40 @@ xhost +
 #------------------------------------#
 # User specific aliases and functions
 #------------------------------------#
-# ls dirs first
-alias ls="ls --group-directories-first --color=auto"
-
+# ls dirs first with color
+alias ls="ls -h --group-directories-first --color=auto"
 # ll lists details
 alias ll="ls -l"
+# la list hidden
+alias la='ls -a'
+
+# always parent
+alias mkdir='mkdir -p'
+
+# Pretty-print of some PATH variables:
+alias path='echo -e ${PATH//:/\\n}'
+alias libpath='echo -e ${LD_LIBRARY_PATH//:/\\n}'
+alias pypath='echo -e ${PYTHONPATH//:/\\n}'
+
+# disk usage
+alias du='du -kh'
+alias df='df -kTh'
 
 # function then alias means that whenever I cd, I get the cd dir's contents
-cdd() {
-    cd $1
-    ls
-}
+cdd() { cd $1 && ls; }
 alias cd=cdd
 
 # asks for confirmation for every delete
 alias rm="rm -i"
 
 # does an ls after a clear
-cls() {
-    clear # incase any programs have closed
-    clear
-    ls
-}
+cls() { clear # incase any programs have closed
+    clear && ls; }
 alias clear=cls
 
 # taken from http://soft.zoneo.net/Linux/remove_backup_files.php
 # finds all instances of backup files (that end with ~) and deletes them
-del_backups()
-{
-    find ./ -name '*~' | xargs rm
-}
+rmb() { find ./ -name '*~' | xargs rm; }
 
 Sleep() {
     v="$1"
@@ -77,9 +81,17 @@ ekill() {
     xargs -i kill -9 {}
 }
 
+# shows debug images from stbt templatematch
+DEBUG() {
+    if [ -d "stbt-debug" ]; then
+        eog $(find -path ./stbt-debug/*/*.png)
+    else
+        echo "No stbt-debug directory!"
+    fi
+}
+
 # go to uitests repo
 alias UITESTS="cd $HOME/test-dev/uitests"
-
 # go to stb-tester repo
 alias STBT="cd $HOME/stbt-dev/stb-tester"
 
