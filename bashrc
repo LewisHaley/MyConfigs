@@ -90,6 +90,10 @@ DEBUG() {
     fi
 }
 
+# open file manager at current dir
+FM() { gnome-open "$(pwd)"; }
+
+
 # go to uitests repo
 alias UITESTS="cd $HOME/test-dev/uitests"
 # go to stb-tester repo
