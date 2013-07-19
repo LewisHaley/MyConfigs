@@ -37,6 +37,15 @@ On_White='\e[47m'       # White
 
 NC="\e[m"               # Color Reset
 
+# start the day the right way
+echo -e "${BWhite}${On_Red}Please enjoy your trip through this door...\n"
+if [ -x /usr/bin/fortune ]; then
+    /usr/bin/fortune
+else
+    echo "Install fortune!"
+fi
+echo -e "${NC}"
+
 # set bash prompt
 face0() { echo ' ✔ '; }
 face1() { echo ' ✘ '; }
