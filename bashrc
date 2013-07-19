@@ -56,9 +56,6 @@ ps1off() {
     PS1="[\u@\h \W]\$ "
 }
 
-# run this when terminal starts so that other users (namely stb-tester) have access to my stuff
-xhost +
-
 #------------------------------------#
 # User specific aliases and functions
 #------------------------------------#
