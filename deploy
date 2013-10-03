@@ -5,26 +5,32 @@
 # (Fedora) machine.
 
 # COMMAND LINE
+echo 'Copying bashrc and inputrc to $HOME dir'
 cp bashrc "$HOME/.bashrc"
 cp inputrc "$HOME/.inputrc"
 
 # VI
 mkdir -p "$HOME/.vim/autoload" "$HOME/.vim/bundle"
+echo 'Downloading pathogen for vim'
 curl -Sso "$HOME/.vim/autoload/pathogen.vim" \
     https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 ( cd "$HOME/.vim/bundle"
     if [ ! -d "jedi-vim" ]; then
+        echo 'Clonng jedi-vim'
         git clone git@github.com:davidhalter/jedi-vim.git
     fi
     cd jedi-vim
     git submodule update --init )
+echo 'Copying vimrc to $HOME dir'
 cp vimrc "$HOME/.vimrc"
 
 # GIT
+echo 'Copying git configs'
 cp gitk "$HOME/.gitk"
 cp gitconfig "$HOME/.gitconfig"
 
 # TERMINATOR
+echo 'Copying terminator config'
 trap "rm -f config" EXIT
 sed "s#<BACKGROUND_URI>#$PWD/clouds.png#" terminator_config > config
 if [ -d "$HOME/.config/terminator" ]; then
@@ -33,3 +39,5 @@ else
     mkdir -p "$HOME/.config/terminator" &&
     mv config "$HOME/.config/terminator/"
 fi
+
+echo 'Done'
