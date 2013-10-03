@@ -47,11 +47,13 @@ fi
 echo -e "${NC}"
 
 # set bash prompt
-face0() { echo ' ✔ '; }
-face1() { echo ' ✘ '; }
-PS1_1='\[\e[1;$((42-(($?>0))))m\]$(face$(($?>0)))\[\e[00m\]'
-PS1_2='\[\e[0;34m\][\h:\[\e[00m\]\[\e[1;34m\]\W\[\e[00m\]\[\e[0;34m\]]\$\[\e[00m\] '
-export PS1="$PS1_1 $PS1_2"
+PS1='\[\e[1;$((42-(($?>0))))m\] $([ $? -eq 0 ] && echo ✔ || echo ✘)'
+PS1="$PS1 \[${NC}\] \[${Blue}\][\h:\[${NC}\]\[${BBlue}\]\W\[${NC}\]\[${Blue}\]]"
+PS2="\[${Blue}\]▶\[${NC}\] "
+PS1="$PS1\n$PS2"
+export PS1
+export PS2
+
 ps1off() {
     PS1="[\u@\h \W]\$ "
 }
