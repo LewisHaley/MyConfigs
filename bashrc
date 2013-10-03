@@ -133,6 +133,24 @@ DEBUG() {
 # open file manager at current dir
 FM() { gnome-open "$(pwd)"; }
 
+# set whether to show stbt on screen
+stbt-sink() {
+  box=$1
+  mode=$2
+  on='xvimagesink sync=false force-aspect-ratio=true'
+  off='fakesink sync=false'
+  case $mode in
+    'on')
+      sed -i -E "s/^(sink_pipeline = ).*$/\1$on/" \
+        ~/stb-$box.conf
+      ;;
+    'off')
+      sed -i -E "s/^(sink_pipeline = ).*$/\1$off/" \
+        ~/stb-$box.conf
+      ;;
+  esac
+}
+
 
 # go to uitests repo
 alias UITESTS="cd $HOME/test-dev/uitests"
