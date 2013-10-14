@@ -1,11 +1,9 @@
 " File: _vimrc             
 " Version: 1
-" Author: Seth Mason
+" Original Author: Seth Mason
+" Modified by: Lewis Haley
 " Created: 19 Nov 2003 10:20:19
-" Last-modified: 18 Jun 2013 09:44:16
-" All my Vim commands for the taking
-" Works on cygwin but not very well on unix machines...still trying to figure
-" it out
+" Last-modified: 14 Oct 2013 14:51:14
 
 
 " Use Vim settings, rather then Vi settings (much better!).
@@ -26,7 +24,7 @@ set tabstop=4
 " Spaces instead of tabs
 set expandtab
 
-" Always  set auto indenting on
+" Always set auto indenting on
 set autoindent
 
 " select when using the mouse
@@ -83,21 +81,11 @@ set ignorecase
 " smart search (override 'ic' when pattern has uppers)
 set scs
 
-" Set 'g' substitute flag on
-" set gdefault
-
 " Set status line
 set statusline=[%02n]\ %f\ %(\[%M%R%H]%)%=\ %4l,%02c%2V\ %P%*
 
 " Always display a status line at the bottom of the window
 set laststatus=2
-
-" Set vim to use 'short messages'.
-" set shortmess=a
-
-" Insert two spaces after a period with every joining of lines.
-" I like this as it makes reading texts easier (for me, at least).
-set joinspaces
 
 " showmatch: Show the matching bracket for the last ')'?
 set showmatch
@@ -140,11 +128,6 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
-
-" for cygwin
-set shell=C:/cygwin/bin/bash
-set shellcmdflag=--login\ -c
-set shellxquote=\" 
 
 
 " ************************************************************************
@@ -262,8 +245,6 @@ endif
 "
 abbr #b /************************************************************************
 abbr #e  ************************************************************************/
-
-abbr hosts C:\WINNT\system32\drivers\etc\hosts
 
 " abbreviation to manually enter a timestamp. Just type YTS in insert mode 
 iab YTS <C-R>=TimeStamp()<CR>
