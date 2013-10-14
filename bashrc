@@ -48,7 +48,7 @@ echo -e "${NC}"
 
 # set bash prompt
 PS1='\[\e[1;$((42-(($?>0))))m\] $([ $? -eq 0 ] && echo ✔ || echo ✘)'
-PS1="$PS1 \[${NC}\] \[${Blue}\][\h:\[${NC}\]\[${BBlue}\]\W\[${NC}\]\[${Blue}\]]"
+PS1="$PS1 \[${NC}\] \[${Blue}\][\u@\h:\[${NC}\]\[${BBlue}\]\W\[${NC}\]\[${Blue}\]]"
 PS2="\[${Blue}\]▶\[${NC}\] "
 PS1="$PS1\n$PS2"
 export PS1
