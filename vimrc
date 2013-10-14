@@ -195,6 +195,13 @@ map <c-a> ggVG
 " Undo in insert mode.
 imap <c-z> <c-o>u
 
+" because of typos
+command WQ wq
+command Wq wq
+command W w
+command Q q
+
+
 " Load my color scheme 
 " colorscheme slack
 
