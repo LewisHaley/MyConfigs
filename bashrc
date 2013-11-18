@@ -152,11 +152,18 @@ stbt-sink() {
 }
 
 
-# go to uitests repo
+# shorthand for ssh-ing to the box
+ssh-to-box() {
+  [[ -n ${STBT_CONFIG_FILE:-} ]] &&
+  local ip=$(scan-for-box.py --ip) &&
+  sshpass -p $(stbt config global.box_ssh_pass) \
+    ssh -o StrictHostKeyChecking=no \
+    $(stbt config global.box_ssh_user)@$ip "$@"
+}
+
 alias UITESTS="cd $HOME/test-dev/uitests"
 # go to stb-tester repo
 alias STBT="cd $HOME/stbt-dev/stb-tester"
-
 
 #-----------------------------#
 # Export environment variables
