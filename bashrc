@@ -151,7 +151,6 @@ stbt-sink() {
   esac
 }
 
-
 # shorthand for ssh-ing to the box
 ssh-to-box() {
   [[ -n ${STBT_CONFIG_FILE:-} ]] &&
@@ -159,6 +158,36 @@ ssh-to-box() {
   sshpass -p $(stbt config global.box_ssh_pass) \
     ssh -o StrictHostKeyChecking=no \
     $(stbt config global.box_ssh_user)@$ip "$@"
+}
+
+# print a random 2dp float being min and max or 0 and max
+randnum() {
+  local min=0
+  local max=1
+  case $# in
+    2) min=$1; max=$2;;
+    1) min=0; max=$1;;
+    *) echo "[error] usage: 'randum min max' or 'randnum max'!" >&2; return 1;;
+  esac
+  [ $min -ge $max ] && { echo "[error] min < max"; return 1; }
+  echo "$((min+((RANDOM%((max-min)))))).$((RANDOM%10))$((RANDOM%10))"
+}
+
+# randcsv <lines> <max> <title> [<title> [...]]
+# produce CSV output of length `lines` and maximum value `max`
+# with row length equal to number of `title`s
+randcsv() {
+  local lines=$1
+  local max=$2
+  shift; shift
+  local titles="$@"
+  local num=$#
+  echo "$titles"
+  for ((i=0; i<lines; i++)); do
+    for ((j=0; j<num-1; j++)); do
+      echo -n "$(randnum $max),"
+    done; echo "$(randnum $max)"
+  done
 }
 
 alias UITESTS="cd $HOME/test-dev/uitests"
