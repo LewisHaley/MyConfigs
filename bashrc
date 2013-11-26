@@ -180,9 +180,12 @@ randcsv() {
   local lines=$1
   local max=$2
   shift; shift
-  local titles="$@"
+  local titles=''
+  for t in "$@"; do
+    titles+="$t,"
+  done
   local num=$#
-  echo "$titles"
+  echo "${titles%,}"
   for ((i=0; i<lines; i++)); do
     for ((j=0; j<num-1; j++)); do
       echo -n "$(randnum $max),"
