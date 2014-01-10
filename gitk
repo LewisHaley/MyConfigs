@@ -1,6 +1,6 @@
-set mainfont {sans 9}
-set textfont {monospace 9}
-set uifont {sans 9 bold}
+set mainfont {{Bitstream Vera Sans Mono} 10}
+set textfont {{Bitstream Vera Sans Mono} 10}
+set uifont {{Bitstream Vera Sans Mono} 10 bold}
 set tabstop 8
 set findmergefiles 0
 set maxgraphpct 50
@@ -17,20 +17,20 @@ set limitdiffs 1
 set uicolor #d9d9d9
 set want_ttk 1
 set bgcolor #003451
-set fgcolor #266193
+set fgcolor #5b7bd1
 set colors {green red blue magenta darkgrey brown orange}
-set diffcolors {{#ff8600} #7394ff #3ba400}
+set diffcolors {{#ff8600} #1cdb9b #3ba400}
 set markbgcolor #000000
 set diffcontext 3
-set selectbgcolor #ffff9b
+set selectbgcolor #ffffbc
 set extdifftool meld
 set perfile_attrs 0
-set geometry(main) 1078x961+0+0
+set geometry(main) 1078x960+0+0
 set geometry(state) normal
 set geometry(topwidth) 1078
-set geometry(topheight) 360
-set geometry(pwsash0) "820 1"
-set geometry(pwsash1) "976 1"
-set geometry(botwidth) 746
-set geometry(botheight) 596
+set geometry(topheight) 369
+set geometry(pwsash0) "840 1"
+set geometry(pwsash1) "968 1"
+set geometry(botwidth) 1063
+set geometry(botheight) 586
 set permviews {}
