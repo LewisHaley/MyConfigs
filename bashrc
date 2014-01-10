@@ -202,7 +202,7 @@ alias STBT="cd $HOME/stbt-dev/stb-tester"
 #-----------------------------#
 export PYTHONPATH="$HOME/test-dev/uitests/library":"$HOME/libexec/stbt/":$PYTHONPATH
 export PYTHONPATH="/usr/libexec/stbt/":$PYTHONPATH
-export PATH="$HOME/test-dev/uitests/tools/":"$HOME/bin":$PATH
+export PATH="$HOME/test-dev/uitests/tools/:$HOME/bin:$PATH"
 export CDPATH="$HOME"
 
 #-------------------------#
