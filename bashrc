@@ -37,22 +37,31 @@ On_White='\e[47m'       # White
 
 NC="\e[m"               # Color Reset
 
-# start the day the right way
-echo -e "${BWhite}${On_Red}Please enjoy your trip through this door...\n"
-if [ -x /usr/bin/fortune ]; then
-    /usr/bin/fortune
-else
-    echo "Install fortune!"
-fi
-echo -e "${NC}"
+if [ -z "${SSH_CLIENT}" ]; then
+    # start the day the right way
+    echo -e "${BWhite}${On_Red}Please enjoy your trip through this door...\n"
+    if [ -x /usr/bin/fortune ]; then
+        /usr/bin/fortune
+    else
+        echo "Install fortune!"
+    fi
+    echo -e "${NC}"
 
-# set bash prompt
-PS1='\[\e[1;$((42-(($?>0))))m\] $([ $? -eq 0 ] && echo ✔ || echo ✘)'
-PS1="$PS1 \[${NC}\] \[${Blue}\][\u@\h:\[${NC}\]\[${BBlue}\]\W\[${NC}\]\[${Blue}\]]"
-PS2="\[${Blue}\]▶\[${NC}\] "
-PS1="$PS1\n$PS2"
-export PS1
-export PS2
+    # set bash prompt
+    PS1='\[\e[1;$((42-(($?>0))))m\] $([ $? -eq 0 ] && echo ✔ || echo ✘)'
+    PS1="$PS1 \[${NC}\] \[${Blue}\][\u@\h:\[${NC}\]\[${BBlue}\]\W\[${NC}\]\[${Blue}\]]"
+    PS2="\[${Blue}\]▶\[${NC}\] "
+    PS1="$PS1\n$PS2"
+    export PS1
+    export PS2
+else
+    PS1='$([ $? -eq 0 ] && echo ✔ || echo ✘)'
+    PS1="$PS1 [ssh \u@\h:\W]"
+    PS2="▶ "
+    PS1="$PS1\n$PS2"
+    export PS1
+    export PS2
+fi
 
 ps1off() {
     PS1="[\u@\h \W]\$ "
