@@ -14,4 +14,4 @@ PYTHONPATH=$PYTHONPATH:/usr/libexec/stbt
 PYTHONPATH=$PYTHONPATH:$HOME/libexec/stbt
 PYTHONPATH=$PYTHONPATH:$HOME/test-dev/uitests/library
 
-export PATH PYTHON
+export PATH PYTHONPATH
