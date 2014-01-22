@@ -7,7 +7,7 @@
 # COMMAND LINE
 echo 'Copying bashrc and inputrc to $HOME dir'
 cp bashrc "$HOME/.bashrc"
-cp bash_profile "$HOME/bash_profile"
+cp bash_profile "$HOME/.bash_profile"
 cp inputrc "$HOME/.inputrc"
 
 # VI
