@@ -216,6 +216,7 @@ export PATH+=:$HOME/test-dev/uitests/tools
 export PYTHONPATH+=/usr/libexec/stbt
 export PYTHONPATH+=:$HOME/libexec/stbt
 export PYTHONPATH+=:$HOME/test-dev/uitests/library
+export PYTHONPATH+=:$HOME/test-dev/uitests/library/youview
 
 export CDPATH="$HOME"
 
