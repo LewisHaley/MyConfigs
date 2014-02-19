@@ -202,6 +202,16 @@ randcsv() {
   done
 }
 
+# Nice wrapper for fortune which prints blank lines to the
+# bottom of the terminal window.
+FORTUNE() {
+  local category="$1"
+  local text="$(fortune ${category})"
+  local num_lines="$(echo "${text}" | wc -l)"
+  printf "\ec\n\n\n\n\n${On_Black}${BWhite}%s${NC}\n" "${text}"
+  printf "%0.s\n" $(seq 1 $((LINES - ((num_lines + 5)))))
+}
+
 alias UITESTS="cd $HOME/test-dev/uitests"
 # go to stb-tester repo
 alias STBT="cd $HOME/stbt-dev/stb-tester"
