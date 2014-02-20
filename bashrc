@@ -219,7 +219,6 @@ alias STBT="cd $HOME/stbt-dev/stb-tester"
 #-----------------------------#
 # Export environment variables
 #-----------------------------#
-export PATH+=:$HOME/.local/bin
 export PATH+=:$HOME/test-dev/uitests/tools
 
 # this is the first place PYTHONPATH is set, so no leading ':'
