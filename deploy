@@ -40,4 +40,14 @@ else
     mv config "$HOME/.config/terminator/"
 fi
 
+# OTHER EXECUTABLES
+[ ! -d "${HOME}/bin" ] && { echo "Creating ${HOME}/bin"; mkdir "${HOME}/bin"; }
+
+# SPARK (command line graphs)
+echo "Downloading 'spark'"
+{ curl --silent \
+  https://raw.github.com/holman/spark/master/spark > "${HOME}/bin/spark" &&
+  chmod a+x "${HOME}/bin/spark"
+} || { rm -f "${HOME}/bin/spark"; echo "Failed to download 'spark'"; }
+
 echo 'Done'
