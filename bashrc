@@ -219,14 +219,36 @@ alias STBT="cd $HOME/stbt-dev/stb-tester"
 #-----------------------------#
 # Export environment variables
 #-----------------------------#
-export PATH+=:$HOME/test-dev/uitests/tools
-export PATH+=:$HOME/bin
 
-# this is the first place PYTHONPATH is set, so no leading ':'
-export PYTHONPATH+=/usr/libexec/stbt
-export PYTHONPATH+=:$HOME/libexec/stbt
-export PYTHONPATH+=:$HOME/test-dev/uitests/library
-export PYTHONPATH+=:$HOME/test-dev/uitests/library/youview
+# Check the given path (either $PATH or $PYTHONPATH) for the given path
+# to add. If not already listed, append, but echo either way.
+path_append() {
+  local path=$1
+  local add=$2
+  local i=1
+  while true; do
+    seg="$(echo ${path} | cut -d':' -f${i})"
+    if [ -n "${seg}" ]; then
+      if [ "${seg}" = "${add}" ]; then break; fi
+    else
+      path="${path}:${add}"
+      break
+    fi
+    ((i++))
+  done
+  echo "${path}"
+}
+
+PATH="$(path_append "${PATH}" "$HOME/test-dev/uitests/tools")"
+PATH="$(path_append "${PATH}" "$HOME/bin")"
+
+PYTHONPATH="$(path_append "${PYTHONPATH}" "/usr/libexec/stbt")"
+PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/libexec/stbt")"
+PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/test-dev/uitests/library")"
+PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/test-dev/uitests/library/youview")"
+
+export PATH
+export PYTHONPATH
 
 export CDPATH="$HOME"
 
