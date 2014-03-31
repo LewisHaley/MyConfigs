@@ -50,4 +50,28 @@ echo "Downloading 'spark'"
   chmod a+x "${HOME}/bin/spark"
 } || { rm -f "${HOME}/bin/spark"; echo "Failed to download 'spark'"; }
 
+# GET DROPBOX
+echo "Installing Dropbox"
+# Always install from fresh, in case of updates
+[ -f "${HOME}/bin/dropbox.py" ] && { dropbox.py stop; }
+rm -rf ~/.dropbox-dist
+# Grab the CLI script, which can install Dropbox for me, but
+# delete the lines which prompt for yes/no input, and disable GUI,
+# and fixes "running" command to have Unix style exit codes
+{ curl --silent \
+  https://linux.dropbox.com/packages/dropbox.py > "${HOME}/bin/dropbox.tmp" &&
+  ln="$(awk '/if not yes_no_question.*/ {print FNR}' "${HOME}/bin/dropbox.tmp")" &&
+  sed "${ln},$((ln + 2)) d" "${HOME}/bin/dropbox.tmp" |
+  sed "s/Returns 1 if running 0 if not running/Returns 0 if running 1 if not running/" |
+  sed "s/return int(is_dropbox_running())/return int(not is_dropbox_running())/" \
+    > "${HOME}/bin/dropbox.py" &&
+  chmod a+x "${HOME}/bin/dropbox.py" &&
+  rm -f "${HOME}/bin/dropbox.tmp"
+} || { rm -rf "${HOME}/bin/dropbox.py"; echo "Failed to install dropbox.py"; }
+[ -f "${HOME}/bin/dropbox.py" ] && {
+  DISPLAY= dropbox.py start -i
+  dropbox.py autostart yes
+}
+dropbox.py running || echo "Dropbox is not running"
+
 echo 'Done'
