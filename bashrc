@@ -140,7 +140,7 @@ DEBUG() {
 }
 
 # open file manager at current dir
-FM() { gnome-open "$(pwd)"; }
+FM() { gnome-open "${PWD}" &>dev/null; }
 
 # set whether to show stbt on screen
 stbt-sink() {
