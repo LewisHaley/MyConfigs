@@ -145,6 +145,9 @@ FM() { gnome-open "${PWD}" &>dev/null; }
 # open gimp quietly
 GIMP() { gimp ${@} &>/dev/null; }
 
+# open eye-of-gnome (eog) quietly
+see() { eog ${@} &>/dev/null; }
+
 # set whether to show stbt on screen
 stbt-sink() {
   box=$1
