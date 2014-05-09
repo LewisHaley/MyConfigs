@@ -9,18 +9,25 @@ echo 'Copying bashrc and inputrc to $HOME dir'
 cp bashrc "$HOME/.bashrc"
 cp inputrc "$HOME/.inputrc"
 
-# VI
+# VIM
 mkdir -p "$HOME/.vim/autoload" "$HOME/.vim/bundle"
 echo 'Downloading pathogen for vim'
 curl -Sso "$HOME/.vim/autoload/pathogen.vim" \
     https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 ( cd "$HOME/.vim/bundle"
     if [ ! -d "jedi-vim" ]; then
-        echo 'Clonng jedi-vim'
+        echo 'Cloning jedi-vim'
         git clone git@github.com:davidhalter/jedi-vim.git
     fi
     cd jedi-vim
-    git submodule update --init )
+    git submodule update --init
+)
+( cd "$HOME/.vim/bundle"
+    if [ ! -d "vim-colors-solarized" ]; then
+        echo "Cloning vim-colors-solarized"
+        git clone git://github.com/altercation/vim-colors-solarized.git
+    fi
+)
 echo 'Copying vimrc to $HOME dir'
 cp vimrc "$HOME/.vimrc"
 

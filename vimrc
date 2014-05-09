@@ -3,7 +3,7 @@
 " Original Author: Seth Mason
 " Modified by: Lewis Haley
 " Created: 19 Nov 2003 10:20:19
-" Last-modified: 14 Oct 2013 14:51:14
+" Last-modified: 09 May 2014 11:55:16
 
 
 " Use Vim settings, rather then Vi settings (much better!).
@@ -34,11 +34,15 @@ set selectmode=mouse
 set number
 
 " display grey hilite after 80th column
-hi  ColorColumn ctermbg=DarkGray
+hi  ColorColumn ctermbg=Black
 execute "set colorcolumn=" . join(range(81,335), ',')
 
 " pathogen
 execute pathogen#infect()
+
+" set solarized colorscheme
+set background=dark
+colorscheme solarized
 
 " do not keep a backup files 
 set nobackup
