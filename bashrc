@@ -140,7 +140,7 @@ DEBUG() {
 }
 
 # open file manager at current dir
-FM() { gnome-open "${PWD}" &>dev/null; }
+FM() { gnome-open "${PWD}" &>/dev/null; }
 
 # open gimp quietly
 GIMP() { gimp ${@} &>/dev/null; }
