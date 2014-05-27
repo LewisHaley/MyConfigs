@@ -247,6 +247,9 @@ path_append() {
 
 PATH="$(path_append "${PATH}" "$HOME/test-dev/uitests/tools")"
 PATH="$(path_append "${PATH}" "$HOME/bin")"
+PATH="$(path_append "${PATH}" "$HOME/repos/zinc-git-tools")"
+
+ET="$HOME/repos/DEVARCH/"
 
 PYTHONPATH="$(path_append "${PYTHONPATH}" "/usr/libexec/stbt")"
 PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/libexec/stbt")"
@@ -254,6 +257,7 @@ PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/test-dev/uitests/library")"
 PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/test-dev/uitests/library/youview")"
 
 export PATH
+export ET
 export PYTHONPATH
 
 export CDPATH="$HOME"
