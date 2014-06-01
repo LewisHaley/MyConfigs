@@ -13,7 +13,7 @@ cp inputrc "$HOME/.inputrc"
 mkdir -p "$HOME/.vim/autoload" "$HOME/.vim/bundle"
 echo 'Downloading pathogen for vim'
 curl -Sso "$HOME/.vim/autoload/pathogen.vim" \
-    https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+    https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 ( cd "$HOME/.vim/bundle"
     if [ ! -d "jedi-vim" ]; then
         echo 'Cloning jedi-vim'
