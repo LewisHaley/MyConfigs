@@ -6,11 +6,13 @@
 [profiles]
   [[default]]
     palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#5aa167:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    background_darkness = 0.91
+    background_darkness = 0.94
     background_type = image
     background_image = <BACKGROUND_URI>
+    use_system_font = False
     scroll_background = False
     scroll_on_output = False
+    font = Inconsolata Medium 11
     foreground_color = "#839496"
     background_color = "#002b36"
     scrollback_infinite = True
