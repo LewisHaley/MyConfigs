@@ -254,7 +254,7 @@ ET="$HOME/repos/DEVARCH/"
 PYTHONPATH="$(path_append "${PYTHONPATH}" "/usr/libexec/stbt")"
 PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/libexec/stbt")"
 PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/test-dev/uitests/library")"
-PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/test-dev/uitests/library/youview")"
+PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/test-dev/uitests/stbt-youview")"
 
 export PATH
 export ET
