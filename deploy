@@ -90,7 +90,11 @@ else
   chmod +x fedy-installer &&
   ./fedy-installer &&
   rm -f ./fedy-installer
+
+  while read pkg; do
+    yum install -y "${pkg}"
+  done < ./pkg-list
 fi
 
 echo 'Done'
-echo 'You need to run `fedy` manually.'
+echo 'You need to run `fedy` and `gnome-tweak-tool` manually.'
