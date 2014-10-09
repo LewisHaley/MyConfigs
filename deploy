@@ -81,4 +81,16 @@ rm -rf ~/.dropbox-dist
 }
 dropbox.py running || echo "Dropbox is not running"
 
+# REQUIRES ROOT
+if [[ ! $(whoami) = "root" ]]; then
+  echo "Cannot install software without root access - please run as root."
+else
+  # FEDY
+  curl https://satya164.github.io/fedy/fedy-installer -o fedy-installer &&
+  chmod +x fedy-installer &&
+  ./fedy-installer &&
+  rm -f ./fedy-installer
+fi
+
 echo 'Done'
+echo 'You need to run `fedy` manually.'
