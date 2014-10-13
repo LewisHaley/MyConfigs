@@ -226,39 +226,44 @@ alias STBT="cd $HOME/stbt-dev/stb-tester"
 # Export environment variables
 #-----------------------------#
 
-# Check the given path (either $PATH or $PYTHONPATH) for the given path
-# to add. If not already listed, append, but echo either way.
-path_append() {
-  local path=$1
-  local add=$2
-  local i=1
-  while true; do
-    seg="$(echo ${path} | cut -d':' -f${i})"
-    if [ -n "${seg}" ]; then
-      if [ "${seg}" = "${add}" ]; then break; fi
-    else
-      path="${path}:${add}"
-      break
-    fi
-    ((i++))
-  done
-  echo "${path}"
+# pathmunge is lifter from /etc/profile
+pathmunge() {
+  case ":${PATH}:" in
+    *:"${1}":*)
+      ;;
+    *)
+      if [ "${2}" = "after" ]; then
+        PATH="${PATH}:${1}"
+      else
+        PATH="${1}:${PATH}"
+      fi
+  esac
 }
 
-PATH="$(path_append "${PATH}" "$HOME/test-dev/uitests/tools")"
-PATH="$(path_append "${PATH}" "$HOME/bin")"
-PATH="$(path_append "${PATH}" "$HOME/repos/zinc-git-tools")"
+pypathmunge() {
+  case ":${PYTHONPATH}:" in
+    *:"${1}":*)
+      ;;
+    *)
+      if [ "${2}" = "after" ]; then
+        PYTHONPATH="${PYTHONPATH}:${1}"
+      else
+        PYTHONPATH="${1}:${PYTHONPATH}"
+      fi
+  esac
+}
+
+pathmunge "$HOME/test-dev/uitests/tools"
+pathmunge "$HOME/repos/zinc-git-tools"
 
 ET="$HOME/repos/DEVARCH/"
 
-PYTHONPATH="$(path_append "${PYTHONPATH}" "/usr/libexec/stbt")"
-PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/libexec/stbt")"
-PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/test-dev/uitests/library")"
-PYTHONPATH="$(path_append "${PYTHONPATH}" "$HOME/test-dev/uitests/stbt-youview")"
+pypathmunge "/usr/libexec/stbt"
+pypathmunge "${HOME}/libexec/stbt"
+pypathmunge "${HOME}/test-dev/uitests/library"
+pypathmunge "${HOME}/test-dev/uitests/stbt-youview"
 
-export PATH
-export ET
-export PYTHONPATH
+export PATH ET PYTHONPATH
 
 export CDPATH="$HOME"
 
