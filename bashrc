@@ -49,14 +49,14 @@ if [ -z "${SSH_CLIENT}" ]; then
 
     # set bash prompt
     PS1='\[\e[1;$((42-(($?>0))))m\] $([ $? -eq 0 ] && echo ✔ || echo ✘)'
-    PS1="$PS1 \[${NC}\] \[${Blue}\][\u@\h:\[${NC}\]\[${BBlue}\]\W\[${NC}\]\[${Blue}\]]"
+    PS1="$PS1 \[${NC}\] \[${Blue}\][\u@\h:\[${NC}\]\[${BBlue}\]\w\[${NC}\]\[${Blue}\]]"
     PS2="\[${Blue}\]▶\[${NC}\] "
     PS1="$PS1\n$PS2"
     export PS1
     export PS2
 else
     PS1='$([ $? -eq 0 ] && echo ✔ || echo ✘)'
-    PS1="$PS1 [ssh \u@\h:\W]"
+    PS1="$PS1 [ssh \u@\h:\w]"
     PS2="▶ "
     PS1="$PS1\n$PS2"
     export PS1
