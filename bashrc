@@ -166,13 +166,27 @@ stbt-sink() {
   esac
 }
 
-# shorthand for ssh-ing to the box
+# Shorthand for ssh-ing to the box
 ssh-to-box() {
-  [[ -n ${STBT_CONFIG_FILE:-} ]] &&
-  local ip=$(scan-for-box.py --ip) &&
-  sshpass -p $(stbt config global.box_ssh_pass) \
-    ssh -o StrictHostKeyChecking=no \
-    $(stbt config global.box_ssh_user)@$ip "$@"
+    local url="$(stbt config global.network_interface)"
+    [[ -n "$url" ]] || {
+        echo global.network_interface parameter is missing from stbt config >&2
+        return 1
+    }
+    local params="$(curl -s "$url")"
+    local ip="$(echo "$params" | jq -r .box_ip 2>/dev/null)"
+    local oem="$(echo "$params" | jq -r .box_oem 2>/dev/null)"
+
+    [[ -n "$ip" ]] || {
+        echo Box IP is unknown >&2
+        return 1
+    }
+    [[ -n "$oem" ]] || {
+        echo Box OEM is unknown >&2
+        return 1
+    }
+    sshpass -p $(stbt config ${oem}.box_ssh_pass) \
+        ssh $(stbt config ${oem}.box_ssh_user)@$ip "$@"
 }
 
 # print a random 2dp float being min and max or 0 and max
