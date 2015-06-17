@@ -267,6 +267,8 @@ export PATH ET PYTHONPATH
 
 export CDPATH="$HOME"
 
+export STBT_CONFIG_FILE="${HOME}/vidiu.conf"
+
 #-------------------------#
 # Infinite history in bash
 #-------------------------#
