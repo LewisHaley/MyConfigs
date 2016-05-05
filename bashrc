@@ -174,8 +174,8 @@ ssh-to-box() {
         return 1
     }
     local params="$(curl -s "$url")"
-    local ip="$(echo "$params" | jq -r .box_ip 2>/dev/null)"
-    local oem="$(echo "$params" | jq -r .box_oem 2>/dev/null)"
+    local ip="$(echo "$params" | jq -r .box.ip 2>/dev/null)"
+    local oem="$(echo "$params" | jq -r .box.oem 2>/dev/null)"
 
     [[ -n "$ip" ]] || {
         echo Box IP is unknown >&2
@@ -232,6 +232,19 @@ FORTUNE() {
   printf "%0.s\n" $(seq 1 $((LINES - ((num_lines + 5)))))
 }
 
+# Reverse a `mv` with arguments 1 and 2 being swapped
+unmv() {
+  mv "${2}" "${1}"
+}
+
+get_testcase() {
+  python <<-EOF
+	import common, testrail
+	print common.json_pretty(
+	    testrail.TestRail.get_testaut_authed_testrail().get_case('${1}'))
+	EOF
+}
+
 alias UITESTS="cd $HOME/test-dev/uitests"
 # go to stb-tester repo
 alias STBT="cd $HOME/stbt-dev/stb-tester"
@@ -270,18 +283,16 @@ pypathmunge() {
 pathmunge "$HOME/test-dev/uitests/tools"
 pathmunge "$HOME/repos/zinc-git-tools"
 
-ET="$HOME/repos/DEVARCH/"
-
-pypathmunge "/usr/libexec/stbt"
 pypathmunge "${HOME}/libexec/stbt"
 pypathmunge "${HOME}/test-dev/uitests/library"
-pypathmunge "${HOME}/test-dev/uitests/stbt-youview"
+pypathmunge "${HOME}/test-dev/uitests/stb-tester"
 
-export PATH ET PYTHONPATH
-
-export CDPATH="$HOME"
+export PATH PYTHONPATH
 
 export STBT_CONFIG_FILE="${HOME}/vidiu.conf"
+
+source "${HOME}/repos/docker-build-environments/docker-env.sh"
+
 
 #-------------------------#
 # Infinite history in bash
