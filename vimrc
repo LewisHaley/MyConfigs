@@ -37,7 +37,7 @@ set number
 set cursorline
 
 " display grey hilite after 80th column
-hi  ColorColumn ctermbg=Black
+hi ColorColumn ctermbg=Black
 execute "set colorcolumn=" . join(range(81,335), ',')
 
 " pathogen
@@ -107,14 +107,6 @@ set showmatch
 " allow tilde (~) to act as an operator -- ~w, etc.
 set notildeop
 
-
-" Java specific stuff
-let java_highlight_all=1
-let java_highlight_debug=1
-let java_ignore_javadoc=1
-let java_highlight_functions=1
-let java_mark_braces_in_parens_as_errors=1
-
 " highlight strings inside C comments
 let c_comment_strings=1
 
@@ -122,7 +114,6 @@ let c_comment_strings=1
 let g:explVertical=1    " open vertical split winow
 let g:explSplitRight=1  " Put new window to the right of the explorer
 let g:explStartRight=0  " new windows go to right of explorer window
-
 
 if has("gui")
   " set the gui options to:
@@ -185,7 +176,6 @@ imap <c-s> <esc><c-s>
 map <M-Left> :bprevious<CR>
 map <M-Right> :bnext<CR>
 
-
 " Select all.
 map <c-a> ggVG
 
@@ -198,9 +188,6 @@ command Wq wq
 command W w
 command Q q
 
-
-" Load my color scheme 
-" colorscheme slack
 
 " ************************************************************************
 " B E G I N  A U T O C O M M A N D S
