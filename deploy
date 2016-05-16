@@ -4,6 +4,12 @@
 # their correct locations in my $HOME directory on a Linux
 # (Fedora) machine.
 
+
+if [[ $(whoami) = "root" ]]; then
+  echo "Do not run as root!" >&2;
+  exit 1;
+fi
+
 # COMMAND LINE
 echo 'Copying bashrc and inputrc to $HOME dir'
 cp bashrc "$HOME/.bashrc"
@@ -88,20 +94,13 @@ rm -rf ~/.dropbox-dist
 }
 dropbox.py running || echo "Dropbox is not running"
 
-# REQUIRES ROOT
-if [[ ! $(whoami) = "root" ]]; then
-  echo "Cannot install software without root access - please run as root."
-else
-  # FEDY
-  curl https://satya164.github.io/fedy/fedy-installer -o fedy-installer &&
-  chmod +x fedy-installer &&
-  ./fedy-installer &&
-  rm -f ./fedy-installer
+# FEDY
+curl https://satya164.github.io/fedy/fedy-installer -o fedy-installer &&
+chmod +x fedy-installer &&
+sudo ./fedy-installer &&
+rm -f ./fedy-installer
 
-  while read pkg; do
-    yum install -y "${pkg}"
-  done < ./pkg-list
-fi
+sudo dnf install -y $(cat pkg-list)
 
 echo 'Done'
 echo 'You need to run `fedy` and `gnome-tweak-tool` manually.'
