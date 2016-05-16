@@ -3,7 +3,7 @@
 " Original Author: Seth Mason
 " Modified by: Lewis Haley
 " Created: 19 Nov 2003 10:20:19
-" Last-modified: 16 May 2016 11:54:36
+" Last-modified: 16 May 2016 12:58:44
 
 
 " Use Vim settings, rather then Vi settings (much better!).
@@ -35,6 +35,9 @@ set number
 
 " highlight current line
 set cursorline
+
+" pastetoggle (sane indentation on pastes)
+set pastetoggle=<F12>
 
 " display grey hilite after 80th column
 hi ColorColumn ctermbg=Black
@@ -111,7 +114,45 @@ set notildeop
 let c_comment_strings=1
 
 " For omnicppcomplete
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" To disable omni complete, add the following to your .vimrc.before.local file:
+"   let g:spf13_no_omni_complete = 1
+if !exists('g:spf13_no_omni_complete')
+  if has("autocmd") && exists("+omnifunc")
+    autocmd FileType *
+      \ if &omnifunc == "" |
+      \ setlocal omnifunc=syntaxcomplete#Complete |
+      \ endif
+  endif
+
+  hi Pmenu
+  \ guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+  hi menuSbar
+  \ guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+  hi PmenuThumb
+  \ guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
+  if exists('g:spf13_map_cr_omni_complete')
+    inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+  endif
+  inoremap <expr> <Down>   pumvisible() ? "\<C-n>" : "\<Down>"
+  inoremap <expr> <Up>     pumvisible() ? "\<C-p>" : "\<Up>"
+  inoremap <expr> <C-d>    pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+  inoremap <expr> <C-u>    pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+
+  " Automatically open and close the popup menu / preview window
+  au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+  set completeopt=menu,preview,longest
+
+  map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+endif
+
+" Ctags
+set tags=./tags;/,~/.vimtags
+" Make tags placed in .git/tags file available in all levels of a repository
+let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
+if gitroot != ''
+  let &tags = &tags . ',' . gitroot . '/.git/tags'
+endif
 
 " Instead of reverting the cursor to the last position in the buffer, we
 " set it to the first line when editing a git commit message
@@ -199,6 +240,18 @@ command Q q
 " ************************************************************************
 " B E G I N  A U T O C O M M A N D S
 "
+function! StripTrailingWhitespace()
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " do the business:
+  %s/\s\+$//e
+  " clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
 if has("autocmd")
 
   " Enable file type detection.
@@ -224,6 +277,11 @@ if has("autocmd")
   " position afterwards (this is from the FAQ) 
   autocmd BufWritePre,FileWritePre *   ks|call UpdateTimeStamp()|'s
 
+  autocmd FileType c,cpp,javascript,python,xml,yml,sql
+    \ autocmd BufWritePre <buffer>
+    \ if !exists('g:spf13_keep_trailing_whitespace') |
+    \   call StripTrailingWhitespace() |
+    \ endif
 
 endif " has("autocmd")
 
