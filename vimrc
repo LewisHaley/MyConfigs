@@ -110,6 +110,13 @@ set notildeop
 " highlight strings inside C comments
 let c_comment_strings=1
 
+" For omnicppcomplete
+map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+" Instead of reverting the cursor to the last position in the buffer, we
+" set it to the first line when editing a git commit message
+au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+
 " Commands for :Explore
 let g:explVertical=1    " open vertical split winow
 let g:explSplitRight=1  " Put new window to the right of the explorer
