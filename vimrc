@@ -3,7 +3,7 @@
 " Original Author: Seth Mason
 " Modified by: Lewis Haley
 " Created: 19 Nov 2003 10:20:19
-" Last-modified: 09 May 2014 11:55:16
+" Last-modified: 16 May 2016 11:54:36
 
 
 " Use Vim settings, rather then Vi settings (much better!).
@@ -33,6 +33,9 @@ set selectmode=mouse
 " display line numbers
 set number
 
+" highlight current line
+set cursorline
+
 " display grey hilite after 80th column
 hi  ColorColumn ctermbg=Black
 execute "set colorcolumn=" . join(range(81,335), ',')
@@ -40,9 +43,16 @@ execute "set colorcolumn=" . join(range(81,335), ',')
 " pathogen
 execute pathogen#infect()
 
+set background=light
 " set solarized colorscheme
-set background=dark
-colorscheme solarized
+if !exists('g:override_spf13_bundles') &&
+  \ filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+    let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
+    let g:solarized_contrast="normal"
+    let g:solarized_visibility="normal"
+    colorscheme solarized
+endif
 
 " do not keep a backup files 
 set nobackup
