@@ -39,7 +39,7 @@ NC="\e[m"               # Color Reset
 
 if [ -z "${SSH_CLIENT}" ]; then
     # start the day the right way
-    echo -e "${BWhite}${On_Red}Please enjoy your trip through this door...\n"
+    echo -e "${Black}${On_Cyan}Please enjoy your trip through this door...\n"
     if [ -x /usr/bin/fortune ]; then
         /usr/bin/fortune
     else
