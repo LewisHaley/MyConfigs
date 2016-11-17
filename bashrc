@@ -291,7 +291,9 @@ export PATH PYTHONPATH
 
 export STBT_CONFIG_FILE="${HOME}/vidiu.conf"
 
-source "${HOME}/repos/docker-build-environments/docker-env.sh"
+docker_env="${HOME}/repos/docker-build-environments/docker-env.sh"
+[ -f "${docker_env}" ] && source "${docker_env}"
+unset docker_env
 
 
 #-------------------------#
